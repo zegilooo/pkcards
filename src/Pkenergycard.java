@@ -3,16 +3,17 @@ public class Pkenergycard extends Pkcard{
 	
 	private EnergyType energyType;
 	
-	public Pkenergycard (String name, EnergyType energyType){
-		super("Pkenergycard", name);	
+	public Pkenergycard (EnergyType energyType){
+		super("");	
 		this.energyType = energyType;
 	}
 	
 	public String toString(){
-		return super.getName()+" "+this.energyType;
+		return this.energyType.toString();
 	}
+	
 	public String toJson(){
-		return "{\"name\":\""+super.getName()+"\",\"energyType\":\""+this.energyType+"\"}";
+		return "{\"energyType\":\""+this.energyType.toString()+"\"}";
 	}
 }
 

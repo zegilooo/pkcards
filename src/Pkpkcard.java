@@ -7,7 +7,7 @@ public class Pkpkcard extends Pkcard{
 	private int collectorCardNumber;
 	
 	public Pkpkcard (String name, EnergyType energyType, int hp, int stage, int collectorCardNumber){
-		super("Pkpkcard", name);
+		super(name);
 		this.energyType = energyType;		
 		this.hp = hp;	
 		this.stage = stage;	

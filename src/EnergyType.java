@@ -10,6 +10,5 @@ public enum EnergyType {
 	METAL,
 	FAIRY,
 	DRAGON,
-	COLORLESS,
-	NONE
+	COLORLESS
 }
