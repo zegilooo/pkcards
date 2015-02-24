@@ -1,12 +1,19 @@
 package pokedeck;
+
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import com.google.gson.Gson; 
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 
 public class Deck {
 	
@@ -42,8 +49,28 @@ public class Deck {
 		 return gson.toJson(this.deck);
 	}
 	
-	public String readFromFile(String path) throws IOException{
-		String content ="";
+	public void deserialize(JsonElement je)
+	        throws JsonParseException
+	    {
+	        JsonElement content = je.getAsJsonObject().get("cardType");
+	        String cardType = content.toString();
+	        switch (cardType)
+	        {
+	          case "\"PokemonCard\"":
+	        	  this.deck.add(gson.fromJson(je, PokemonCard.class));
+	            break;
+	          case "\"EnergyCard\"":
+	        	  this.deck.add(gson.fromJson(je, EnergyCard.class));
+	            break;
+	          case "\"TrainerCard\"":
+	        	  this.deck.add(gson.fromJson(je, TrainerCard.class));
+	            break;
+	          default :
+	      		System.out.println("Deck.deserialize() error");
+	        }
+	    }
+	
+	public void readFromFile(String path) throws IOException{
 		BufferedReader br = new BufferedReader(new FileReader(path));
 	    try {
 	        StringBuilder sb = new StringBuilder();
@@ -54,17 +81,16 @@ public class Deck {
 	            sb.append(System.lineSeparator());
 	            line = br.readLine();
 	        }
-	        content = sb.toString();
-	        ArrayList<Object> tempo = gson.fromJson(content, new TypeToken<ArrayList<Object>>(){}.getType());
-	        for (int i = 0; i < tempo.size(); i++) {
-				System.out.println(tempo.get(i));
-			}
-
+	        JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(path)));
+	        JsonParser jsonParser = new JsonParser();
+	        JsonArray cardArray= jsonParser.parse(reader).getAsJsonArray();
+	        for ( JsonElement aCard : cardArray ) {
+	        	deserialize(aCard);
+	        	}
+	        
 	    } finally {
 	        br.close();
 	    }
-
-		return content;
 	} 
 	
 	public void saveToFile(String path, String content) throws IOException{

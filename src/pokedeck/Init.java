@@ -1,50 +1,35 @@
 package pokedeck;
 import java.io.IOException;
-import java.lang.reflect.Field;
 
 
 public class Init {
-	public static void getObject(Object obj) throws IllegalArgumentException, IllegalAccessException {
-	    for (Field field : obj.getClass().getDeclaredFields()) {
-	        System.out.println(field.getName()
-	                 + " - " + field.getType()
-	                 + " - " + field.get(obj));
-	    }
-	}   
 	public static void main(String[] args) throws IOException, IllegalArgumentException, IllegalAccessException {
 		
-		Deck deck = new Deck();
-		deck.readFromFile("test.json");
-		
-	/*	
-		deck.add(new Pkpkcard("pokemon", EnergyType.GRASS, 10, 20, 30));
-		deck.add(new Pkenergycard(EnergyType.DRAGON));
-		deck.add(new Pktrainercard("trainer", TrainerType.STADIUM, "blablabla"));
-		
-		deck.add(new Pkpkcard("pokemon", EnergyType.GRASS, 10, 20, 30));
-		deck.add(new Pkenergycard(EnergyType.DRAGON));
-		deck.add(new Pktrainercard("trainer", TrainerType.STADIUM, "blablabla"));
-	*/	
+		Deck deck = new Deck();		
 
-
-		//Pkcard test = (Pkcard)deck.get(0);
-		//getObject(test);
-		//System.out.println(test.toJson(test));
+		deck.add(new PokemonCard("pokemon", EnergyType.GRASS, 10, 20, 30));
+		deck.add(new EnergyCard(EnergyType.DRAGON));
+		deck.add(new TrainerCard("trainer", TrainerType.STADIUM, "blablabla"));
 		
-	/*
+		deck.add(new PokemonCard("pokemon", EnergyType.GRASS, 15, 25, 35));
+		deck.add(new EnergyCard(EnergyType.FIGHTING));
+		deck.add(new TrainerCard("trainer", TrainerType.SUPPORTER, "blablabliblabla"));
+	
+		Card test = (Card)deck.get(3);
+		System.out.println(test.toJson(test));
+		
 		String json = deck.toJson();
 		deck.saveToFile("test.json", json);
+				
+		Deck deck2 = new Deck();
+		deck2.readFromFile("test.json");
 		
-		System.out.println(deck.readFromFile("test.json"));
+		Card test2 = (Card)deck2.get(1);
+		System.out.println(test2.toJson(test2));
 		
-		Pkdeck deck2 = new Pkdeck();
-		
-	*/
-		
-	/*
-		Console ihm = new Console(deck);
-		ihm.start();
-	*/
+		String json2 = deck2.toJson();
+		deck2.saveToFile("test2.json", json2);
+
 
 	}
 

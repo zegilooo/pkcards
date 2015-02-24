@@ -5,7 +5,7 @@ public class EnergyCard extends Card{
 	private EnergyType energyType;
 	
 	public EnergyCard (EnergyType energyType){
-		super("");	
+		super("EnergyCard");	
 		this.energyType = energyType;
 	}
 	
