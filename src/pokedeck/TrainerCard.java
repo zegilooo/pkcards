@@ -2,9 +2,9 @@ package pokedeck;
 
 public class TrainerCard extends Card{
 	
-	private TrainerType trainerType;
-	private String name;
-	private String trainerRule;
+	public String name;
+	public TrainerType trainerType;
+	public String trainerRule;
 	
 	public TrainerCard (String name, TrainerType trainerType, String trainerRule){
 		super("TrainerCard");	

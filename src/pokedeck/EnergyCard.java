@@ -2,7 +2,7 @@ package pokedeck;
 
 public class EnergyCard extends Card{
 	
-	private EnergyType energyType;
+	public EnergyType energyType;
 	
 	public EnergyCard (EnergyType energyType){
 		super("EnergyCard");	

@@ -17,36 +17,41 @@ import com.google.gson.stream.JsonReader;
 
 public class Deck {
 	
-	private ArrayList<Card> deck;
+	public ArrayList<Card> cards;
 	private static final Gson gson = new Gson(); 
+	private static Deck instance = null;
 	
 	public Deck (){
-		this.deck = new ArrayList<Card>();
+		this.cards = new ArrayList<Card>();
 	}
 	
-	public void add(Card card){
-		this.deck.add(card);
-	}
-	
-	public Card get(int i){
-		return this.deck.get(i);
-	}
-	
-	public void remove(int i){
-		this.deck.remove(i);
+	public static Deck getInstance(){
+		//needed to keep the same instance during the program
+		if(instance == null)
+			instance = new Deck();
+		return instance;
 	}
 	
 	public String toString(){
 		String string = "";
-		for (int i = 0; i < this.deck.size(); i++) {
-			string += Integer.toString(i)+"\t"+this.deck.get(i).toString();
-			if(i < this.deck.size()-1) string += "\n";
+		for (int i = 0; i < this.cards.size(); i++) {
+			string += Integer.toString(i)+"\t"+this.cards.get(i).toString();
+			if(i < this.cards.size()-1) string += "\n";
 		}
         return string;
 	}
 	
 	public String toJson(){
-		 return gson.toJson(this.deck);
+		 return gson.toJson(this.cards);
+	}
+	
+	public void saveLastDeck() throws IOException{
+		String json = this.toJson();
+		this.saveToFile("backup.json", json);
+	}
+
+	public void restoreLastDeck() throws IOException{
+		this.readFromFile("backup.json");
 	}
 	
 	public void deserialize(JsonElement je)
@@ -57,13 +62,13 @@ public class Deck {
 	        switch (cardType)
 	        {
 	          case "\"PokemonCard\"":
-	        	  this.deck.add(gson.fromJson(je, PokemonCard.class));
+	        	  this.cards.add(gson.fromJson(je, PokemonCard.class));
 	            break;
 	          case "\"EnergyCard\"":
-	        	  this.deck.add(gson.fromJson(je, EnergyCard.class));
+	        	  this.cards.add(gson.fromJson(je, EnergyCard.class));
 	            break;
 	          case "\"TrainerCard\"":
-	        	  this.deck.add(gson.fromJson(je, TrainerCard.class));
+	        	  this.cards.add(gson.fromJson(je, TrainerCard.class));
 	            break;
 	          default :
 	      		System.out.println("Deck.deserialize() error");

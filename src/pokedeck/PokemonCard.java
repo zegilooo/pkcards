@@ -2,11 +2,11 @@ package pokedeck;
 
 public class PokemonCard extends Card{
 	
-	private EnergyType energyType;	
-	private String name;
-	private int hp;
-	private int stage;
-	private int collectorCardNumber;
+	public EnergyType energyType;	
+	public String name;
+	public int hp;
+	public int stage;
+	public int collectorCardNumber;
 	
 	public PokemonCard (String name, EnergyType energyType, int hp, int stage, int collectorCardNumber){
 		super("PokemonCard");

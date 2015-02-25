@@ -68,7 +68,7 @@ public class Console {
 		System.out.println("Quelle carte voulez vous supprimer ?");
 		System.out.println(this.deck);
 		int i = this.scanner.nextInt();
-		if (i >-1) this.deck.remove(i);
+		if (i >-1) this.deck.cards.remove(i);
 	}
 
 	public void listCards(){
